@@ -103,7 +103,13 @@ function sendToWhatsApp(items, source) {
     total: total,
     items: items.map(i => `${getProduct(i.id).name} x${i.qty}`)
   });
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+  const a = document.createElement('a');
+  a.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 const checkoutWhatsApp = () => sendToWhatsApp(cart.slice(), 'cart');
 
